@@ -10,11 +10,11 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
 
     // Construtor da classe
     constructor(Game) {
-        super(Game, 100, 450, "p_idle").setScale(1.7);
+        super(Game, 100, 400, "p_idle").setScale(1);
         // Configuração das teclas de controle
         this.controles = Game.input.keyboard.createCursorKeys();
         this.teclaInteracao = Game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.setCollideWorldBounds(true); // O personagem colide com os limites do mundo
+        // this.setCollideWorldBounds(true); // O personagem colide com os limites do mundo
     }
 
     // Adiciona o personagem à cena e inicia a animação de idle
@@ -37,7 +37,7 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
         }
 
         // Verifica se a tecla de pulo foi pressionada e o personagem não está pulando
-        if (this.controles.up.isDown && !this.pulando) {
+        if (this.controles.up.isDown ) {
             this.pular();
         }
 
@@ -72,7 +72,7 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(this.velocidade);
         this.setFlipX(false);
         if (!this.pulando) {
-            this.anims.play('p_run', true);
+            this.anims.play('p_andando', true);
         }
     }
 
@@ -81,7 +81,7 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(-this.velocidade);
         this.setFlipX(true);
         if (!this.pulando) {
-            this.anims.play('p_run', true);
+            this.anims.play('p_andando', true);
         }
     }
 
@@ -99,22 +99,22 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
 
     // Carrega a spritesheet do personagem
     static carregarSpritesPersonagem(Game) {
-        Game.load.spritesheet('p_idle', 'assets/mainCharacters/idle.png', {
+        Game.load.spritesheet('p_idle', '../assets/mainCharacter/idle.png', {
             frameWidth: 128,
             frameHeight: 96
         });
 
-        Game.load.spritesheet('p_andando', 'assets/mainCharacters/run.png', {
+        Game.load.spritesheet('p_andando', '../assets/mainCharacter/run.png', {
             frameWidth: 128,
             frameHeight: 96
         });
 
-        Game.load.spritesheet('p_pulando', 'assets/mainCharacter/jump.png', {
+        Game.load.spritesheet('p_pulando', '../assets/mainCharacter/jump.png', {
             frameWidth: 128,
             frameHeight: 96
         });
 
-        Game.load.spritesheet('p_caindo', 'assets/mainCharacters/fall.png', {
+        Game.load.spritesheet('p_caindo', '../assets/mainCharacter/fall.png', {
             frameWidth: 128,
             frameHeight: 96
         });

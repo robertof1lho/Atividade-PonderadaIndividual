@@ -14,7 +14,7 @@ var config = {
     physics: {
         default: 'arcade', // Usa o motor de física Arcade
         arcade: {
-            gravity: { y: 900 }, // Define a gravidade do jogo
+            gravity: { y: 750 }, // Define a gravidade do jogo
             debug: false // Ativa ou desativa o modo de depuração
         }
     },
