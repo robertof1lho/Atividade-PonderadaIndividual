@@ -1,10 +1,11 @@
-// Classe que define o personagem do jogo
 export default class Personagem extends Phaser.Physics.Arcade.Sprite {
 
     // Variáveis para controle do personagem
     controles;
     teclaInteracao;
     pulando = false;
+    pulosRealizados = 0;
+    maxPulos = 2;
     velocidade = 200;
     velocidadePulo = -300;
 
@@ -14,7 +15,6 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
         // Configuração das teclas de controle
         this.controles = Game.input.keyboard.createCursorKeys();
         this.teclaInteracao = Game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        // this.setCollideWorldBounds(true); // O personagem colide com os limites do mundo
     }
 
     // Adiciona o personagem à cena e inicia a animação de idle
@@ -34,10 +34,11 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
         // Verifica se o personagem está no chão
         if (this.body.onFloor()) {
             this.pulando = false;
+            this.pulosRealizados = 0; // Reseta a contagem de pulos quando o personagem toca no chão
         }
 
-        // Verifica se a tecla de pulo foi pressionada e o personagem não está pulando
-        if (this.controles.up.isDown ) {
+        // Verifica se a tecla de pulo foi pressionada e o personagem pode pular novamente
+        if (this.controles.up.isDown && (this.body.onFloor() || this.pulosRealizados < this.maxPulos)) {
             this.pular();
         }
 
@@ -88,6 +89,7 @@ export default class Personagem extends Phaser.Physics.Arcade.Sprite {
     // Faz o personagem pular
     pular() {
         this.pulando = true;
+        this.pulosRealizados++;
         this.setVelocityY(this.velocidadePulo);
         this.anims.play('p_pulando', true);
     }
